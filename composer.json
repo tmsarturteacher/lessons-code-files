@@ -1,0 +1,10 @@
+{
+    "name": "tms/composerapp",
+    "description": "test application",
+    "autoload": {
+        "psr-4": {
+            "Tms\\Composerapp\\": "src/"
+        }
+    },
+    "require": {}
+}
