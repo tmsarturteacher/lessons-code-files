@@ -6,5 +6,6 @@
             "Tms\\Composerapp\\": "src/"
         }
     },
+    "license": "FREE",
     "require": {}
 }
