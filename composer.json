@@ -1,6 +1,6 @@
 {
     "name": "tms123123/composerapp",
-    "description": "test application",
+    "description": "test application 1",
     "autoload": {
         "psr-4": {
             "Tms\\Composerapp\\": "src/"
