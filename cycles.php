@@ -259,5 +259,39 @@ var_dump($birthdayList);
 //    }
 
 
+/** Написать функцию, которая принимает на вход массив первым
+ * аргументом и вторым аргументом что-то строковое.
+ * Проверить содержат ли элементы данного массива это число,
+ * завершить выполнение массива, если да.
+ */
+
+$arr = ["qwe", "dsdf", "dsdf", "3", "rt3"];
+
+function checkPrams(array $arr, string $str): string
+{
+    $resultString = "";
+    foreach ($arr as $value) {
+        $resultString .= $value . ' ';
+        if ($value === $str) {
+            break;
+        }
+    }
+    return $resultString;
+}
+
+$result = checkPrams($arr, "3");
+echo $result;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
