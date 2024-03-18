@@ -1,32 +1,58 @@
 <?php
 
-// INT - целочисленный тип (4,7,9,2) - INT ID (autoincrement)
+require_once 'database/db.php';
 
-// VARCHAR(255) - текстовые данные
-echo "<input />";
+//$pdo->exec("CREATE DATABASE testdb1");
 
-// TEXT - текстовый тип данных
-echo "<texarea></texarea>";
-echo "<input />";
+//    $sql = "create table users (id integer auto_increment primary key, name varchar(30));";
 
-// DATE - для хранения даты YYYY-MM-dd
-// TIME - для хранения времени HH:MM:SS
-// DATETIME - для хранения даты и времени YYYY-MM-dd HH:MM:SS
-// TIMESTAMP - для хранения даты и времени до секунд, в ней хранится инф-ия о том, когда была произведена операция с данными
+class Index
+{
+    public $pdo;
+    public function __construct()
+    {
+        $this->pdo = new Connection();
+        $this->pdo->getConnection();
+    }
 
-// FLOAT - для хранения данных с плавающей точкой. (15.56)
-// BOOLEAN - логический тип данных (TRUE/FALSE, 1/0)
+    public function insertDataToDB(string $sql)
+    {
+        return $this->pdo->db->exec($sql);
+    }
 
-// DECIMAL и NUMERIC - для хранения чисел с фиксированной точностью и масштабом (0.000)
+    public function getData(string $sql)
+    {
+        return $this->pdo->db->query($sql);
+    }
+}
 
-// BLOB - Бинарные файлы (изображения, звуковые файлы, pdf...)
-// ENUM - перечиления (Male/Female, Муж/Жен, 1/0, qwe/gfh/jghvjh/jg)
+?>
 
-// json_encode(); json_decode();
-// JSON - {'key':'value'}
+<html>
+<head>
+
+</head>
+<body>
+    <?php
+
+    $sql = "INSERT INTO users (name) VALUES ('name 6'), ('name 7'), ('name 8')";
+    $selectString = "SELECT * FROM users ";
+
+    $index = new Index();
+    //    $numRows = $index->insertDataToDB($sql);
+    //    echo "Added: " . $numRows . ' rows';
+
+    $getData = $index->getData($selectString);
+
+    echo "<ul>";
+    while ($row = $getData->fetch()) {
+        echo "<li>" . $row["name"] . " <a href='/database/profile.php?id={$row['id']}'>Профиль</a> </li>";
+    }
+    echo "</ul";
 
 
-// Связи (Relations)
-// Один-к-одному (One-to-one)
-// Один-ко-многим (One-to-many)
-// Многие-ко-многим (Many-to-many)
+    ?>
+</body>
+
+
+</html>
