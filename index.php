@@ -1,30 +1,5 @@
 <?php
 
-require_once 'database/db.php';
-
-//$pdo->exec("CREATE DATABASE testdb1");
-
-//    $sql = "create table users (id integer auto_increment primary key, name varchar(30));";
-
-class Index
-{
-    public $pdo;
-    public function __construct()
-    {
-        $this->pdo = new Connection();
-        $this->pdo->getConnection();
-    }
-
-    public function insertDataToDB(string $sql)
-    {
-        return $this->pdo->db->exec($sql);
-    }
-
-    public function getData(string $sql)
-    {
-        return $this->pdo->db->query($sql);
-    }
-}
 
 ?>
 
@@ -33,25 +8,44 @@ class Index
 
 </head>
 <body>
-    <?php
+<?php
 
-    $sql = "INSERT INTO users (name) VALUES ('name 6'), ('name 7'), ('name 8')";
-    $selectString = "SELECT * FROM users ";
+use Database\Index;
 
-    $index = new Index();
-    //    $numRows = $index->insertDataToDB($sql);
-    //    echo "Added: " . $numRows . ' rows';
-
-    $getData = $index->getData($selectString);
-
-    echo "<ul>";
-    while ($row = $getData->fetch()) {
-        echo "<li>" . $row["name"] . " <a href='/database/profile.php?id={$row['id']}'>Профиль</a> </li>";
+function autoloadFiles($className): void
+{
+    $className = ltrim($className, '\\');
+    $fileName  = '';
+    $namespace = '';
+    if ($lastNsPos = strrpos($className, '\\')) {
+        $namespace = substr($className, 0, $lastNsPos);
+        $className = substr($className, $lastNsPos + 1);
+        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
     }
-    echo "</ul";
+    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+    require $fileName;
+}
+
+spl_autoload_register('autoloadFiles');
+
+$sql = "INSERT INTO users (name) VALUES ('name 6'), ('name 7'), ('name 8')";
+$selectString = "SELECT * FROM users ";
+
+$index = new Index();
+//    $numRows = $index->insertDataToDB($sql);
+//    echo "Added: " . $numRows . ' rows';
+
+$getData = $index->getData($selectString);
+
+echo "<ul>";
+while ($row = $getData->fetch()) {
+    echo "<li>" . $row["name"] . " <a href='/database/news.php?id={$row['id']}'>Профиль</a> </li>";
+}
+echo "</ul";
 
 
-    ?>
+?>
 </body>
 
 
